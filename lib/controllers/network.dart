@@ -1,0 +1,44 @@
+import 'dart:convert';
+
+import 'package:get/get.dart';
+import 'package:konachan_viewer/models/post.dart';
+
+/// command center of network
+///
+
+const _kBaseUrl = 'https://konachan.net';
+
+class GetPostRequest {
+  String get url => 'https://konachan.net/post.json?limit=20';
+}
+
+const _kRawPostJson =
+    '{"id":334771,"tags":"2girls car gloves goggles green_eyes gun jpc original purple_eyes weapon","created_at":1637545469,"creator_id":41748,"author":"FormX","change":2074408,"source":"https://www.pixiv.net/en/artworks/92830607","score":0,"md5":"0a8bbd7c3097cbe64c5dbf6e517d301f","file_size":4727932,"file_url":"https://konachan.net/image/0a8bbd7c3097cbe64c5dbf6e517d301f/Konachan.com%20-%20334771%202girls%20car%20gloves%20goggles%20green_eyes%20gun%20jpc%20original%20purple_eyes%20weapon.jpg","is_shown_in_index":true,"preview_url":"https://konachan.net/data/preview/0a/8b/0a8bbd7c3097cbe64c5dbf6e517d301f.jpg","preview_width":150,"preview_height":98,"actual_preview_width":300,"actual_preview_height":196,"sample_url":"https://konachan.net/sample/0a8bbd7c3097cbe64c5dbf6e517d301f/Konachan.com%20-%20334771%20sample.jpg","sample_width":1500,"sample_height":979,"sample_file_size":1068547,"jpeg_url":"https://konachan.net/image/0a8bbd7c3097cbe64c5dbf6e517d301f/Konachan.com%20-%20334771%202girls%20car%20gloves%20goggles%20green_eyes%20gun%20jpc%20original%20purple_eyes%20weapon.jpg","jpeg_width":3000,"jpeg_height":1957,"jpeg_file_size":0,"rating":"s","has_children":false,"parent_id":null,"status":"active","width":3000,"height":1957,"is_held":false,"frames_pending_string":"","frames_pending":[],"frames_string":"","frames":[]}';
+
+class PostListProvider extends GetConnect {
+  Future<Iterable<Post>> getPosts(GetPostRequest request) async {
+    final resp = await get(request.url);
+    // since I know the result will be valid json data
+    return (resp.body as List<dynamic>)
+        .map((e) => Post.fromJson(e));
+  }
+
+  Post getTestPost() {
+    return Post.fromJson(jsonDecode(_kRawPostJson));
+  }
+}
+
+class Network extends GetxController {
+  final post = PostListProvider();
+
+  updatePost({String? tag}) async {
+    final posts = Get.find<RxList<Post>>(tag: tag);
+    posts.value = (await post.getPosts(GetPostRequest())).toList();
+    posts.refresh();
+  }
+
+  addTestPost({String? tag}) {
+    final posts = Get.find<RxList<Post>>(tag: tag);
+    posts.add(post.getTestPost());
+  }
+}
