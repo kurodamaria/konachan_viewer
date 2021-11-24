@@ -5,30 +5,30 @@ import 'package:konachan_viewer/models/post.dart';
 
 /// command center of network
 
-const _kBaseUrl = 'https://konachan.net';
-const _kApiPosts = _kBaseUrl + '/post.json';
-const _kApiTags = _kBaseUrl + '/tag.json';
-const _kApiArtists = _kBaseUrl + '/artist.json';
-const _kApiComments = _kBaseUrl + '/comment.json';
-const _kApiWiki = _kBaseUrl + '/wiki.json';
-const _kApiNotes = _kBaseUrl + '/note.json';
-const _kApiUsers = _kBaseUrl + '/user.json';
-const _kApiForum = _kBaseUrl + '/forum.json';
-const _kApiPool = _kBaseUrl + '/pool.json';
+// const _kBaseUrl = 'https://konachan.net';
+// const _kApiPosts = _kBaseUrl + '/post.json';
+// const _kApiTags = _kBaseUrl + '/tag.json';
+// const _kApiArtists = _kBaseUrl + '/artist.json';
+// const _kApiComments = _kBaseUrl + '/comment.json';
+// const _kApiWiki = _kBaseUrl + '/wiki.json';
+// const _kApiNotes = _kBaseUrl + '/note.json';
+// const _kApiUsers = _kBaseUrl + '/user.json';
+// const _kApiForum = _kBaseUrl + '/forum.json';
+// const _kApiPool = _kBaseUrl + '/pool.json';
 
-final _kResponseCodeToMessage = {
-  200: 'OK: Request was successful',
-  403: 'Access denied',
-  404: 'Not Found',
-  420: 'Invalid Record: Record could not be saved',
-  421: 'User Throttled: User is throttled, try again later',
-  422: 'Locked: The resource if locked and cannot be modified',
-  423: 'Already Exists: Resource already exists',
-  424: 'Invalid Parameters: The given parameters were invalid',
-  500: 'Internal Server Error: Some unknown error occurred on the server',
-  503:
-      'Service Unavailable: Server cannot currently handle the request, try again later'
-};
+// final _kResponseCodeToMessage = {
+//   200: 'OK: Request was successful',
+//   403: 'Access denied',
+//   404: 'Not Found',
+//   420: 'Invalid Record: Record could not be saved',
+//   421: 'User Throttled: User is throttled, try again later',
+//   422: 'Locked: The resource if locked and cannot be modified',
+//   423: 'Already Exists: Resource already exists',
+//   424: 'Invalid Parameters: The given parameters were invalid',
+//   500: 'Internal Server Error: Some unknown error occurred on the server',
+//   503:
+//       'Service Unavailable: Server cannot currently handle the request, try again later'
+// };
 
 /// for test
 const _kRawPostJson =
