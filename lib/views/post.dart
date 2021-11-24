@@ -51,7 +51,7 @@ class PostViewDetail extends StatelessWidget {
             ...post.tags!.split(' ').map((e) => Chip(label: Text(e))),
           ],
         ),
-        Text('Source'),
+        const Text('Source'),
         InkWell(
           child: Text(post.source.toString()),
           onTap: () async {
