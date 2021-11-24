@@ -2,12 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:konachan_viewer/controllers/network.dart';
-import 'package:konachan_viewer/models/post.dart';
 import 'package:rx_shared_preferences/rx_shared_preferences.dart';
 import 'package:disposebag/disposebag.dart';
 
+import 'models/post.dart';
 import 'pages/konachan_viewer_home.dart';
+import 'services/network.dart';
 
 setupDependencies() async {
   Get.put(RxList<Post>(), tag: 'home');

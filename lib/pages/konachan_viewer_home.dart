@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:konachan_viewer/controllers/network.dart';
 import 'package:konachan_viewer/models/post.dart';
+import 'package:konachan_viewer/services/network.dart';
 import 'package:konachan_viewer/views/post.dart';
 
 class KonachanViewerHome extends StatefulWidget {
