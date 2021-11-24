@@ -1,0 +1,13 @@
+workflows:
+  default:
+    name: Build for iOS and Android
+    triggering:
+      events:
+        - push
+    environment:
+      flutter: dev
+    scripts:
+      - name: Build for iOS
+        script: flutter build ios
+      - name: Build for Android
+        script: flutter build android
