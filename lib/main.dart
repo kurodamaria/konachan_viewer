@@ -1,36 +1,15 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:rx_shared_preferences/rx_shared_preferences.dart';
-import 'package:disposebag/disposebag.dart';
+import 'package:konachan_viewer/global_binding.dart';
 
-import 'models/post.dart';
-import 'pages/konachan_viewer_home.dart';
-import 'services/network.dart';
-
-setupDependencies() async {
-  Get.put(RxList<Post>(), tag: 'home');
-  Get.put(Network());
-  DisposeBagConfigs.logger = null;
-  Get.put(RxSharedPreferences(await SharedPreferences.getInstance(),
-      kReleaseMode ? null : const RxSharedPreferencesDefaultLogger()));
-  Get.find<RxSharedPreferences>().getStringStream('themeMode').listen((event) {
-    if (event == 'light') {
-      Get.changeThemeMode(ThemeMode.light);
-    } else if (event == 'dark') {
-      Get.changeThemeMode(ThemeMode.dark);
-    }
-  });
-}
+import 'funs.dart';
 
 main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await setupDependencies();
-
   runApp(GetMaterialApp(
-    home: const KonachanViewerHome(),
+    home: HomePage(),
     theme: ThemeData.light().copyWith(
         appBarTheme: const AppBarTheme(
           color: Colors.white,
@@ -40,9 +19,40 @@ main() async {
         ),
         scaffoldBackgroundColor: Colors.white),
     darkTheme: ThemeData.dark().copyWith(scaffoldBackgroundColor: Colors.black),
-    themeMode:
-        (await Get.find<RxSharedPreferences>().getString('themeMode')) == 'dark'
-            ? ThemeMode.dark
-            : ThemeMode.light,
+    themeMode: await initialThemeMode(),
+    initialBinding: GlobalBinding(),
   ));
+}
+
+class HomePage extends StatelessWidget {
+  const HomePage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          TextButton(
+            onPressed: () {
+              Get.find<LocalStorage>().theme = ThemeMode.light;
+            },
+            child: Text('${ThemeMode.light}'),
+          ),
+          TextButton(
+            onPressed: () {
+              Get.find<LocalStorage>().theme = ThemeMode.dark;
+            },
+            child: Text('${ThemeMode.dark}'),
+          ),
+          TextButton(
+            onPressed: () {
+              Get.find<LocalStorage>().theme = ThemeMode.system;
+            },
+            child: Text('${ThemeMode.system}'),
+          ),
+        ],
+      ),
+    );
+  }
 }
